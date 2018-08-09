@@ -1,0 +1,39 @@
+[21:41:49] Slew to Subra starting.     
+     NOTE: Slew in progress.
+[21:42:05] Arrived at subra
+     NOTE: Mount currently at: 154.57 az., 57.73 alt.
+[21:42:06] Focusing with @Focus3.
+[21:44:02] @Focus3 success. Position = 5413
+[21:44:02] Guider: 5s exposure
+[21:44:11] Guider Image completed: SV70t-ASI-G_light_subra__00032299.fit
+[21:44:14] Selected guide star coordinates: 691.55, 959.50
+[21:44:17] Autoguiding started.
+[21:44:48] Imager: 300s exposure through Clear filter.
+[21:50:01] Image completed: SV70t-ZWO_light_subra_Clear_00031475.fit
+[21:50:02] Imager: 300s exposure through Red filter.
+[21:55:17] Image completed: SV70t-ZWO_light_subra_Red_00031476.fit
+[21:55:18] Imager: 300s exposure through Green filter.
+[22:00:33] Image completed: SV70t-ZWO_light_subra_Green_00031477.fit
+[22:00:34] Imager: 300s exposure through Blue filter.
+[22:05:49] Image completed: SV70t-ZWO_light_subra_Blue_00031478.fit
+[22:05:50] Ending imaging run.
+     NOTE: Parking mount to the north.
+[22:05:53] Slew to kochab starting.
+     NOTE: Slew in progress.
+     NOTE: Slew in progress.
+     NOTE: Slew in progress.
+     NOTE: Slew in progress.
+     NOTE: Slew in progress.
+     NOTE: Slew in progress.
+     NOTE: Slew in progress.
+     NOTE: Slew in progress.
+     NOTE: Slew in progress.
+     NOTE: Slew in progress.
+     NOTE: Slew in progress.
+     NOTE: Slew in progress.
+     NOTE: Slew in progress.
+[22:08:13] Arrived at kochab
+     NOTE: Mount currently at: 20.73 az., 39.58 alt.
+     NOTE: Turning off sidereal drive.
+[22:08:15] Resetting camera defaults.
+[22:08:19] System Parked.
