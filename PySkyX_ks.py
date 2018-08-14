@@ -1,4 +1,6 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3.4
+import sys
+print(sys.executable)
 #
 # Python library for automating SkyX
 #
@@ -16,7 +18,6 @@ CR = "\n"			# A prettier shortcut for a newline.
 
 import time
 import socket
-import sys
 import os
 import random
 import math
@@ -1864,7 +1865,8 @@ def TSXSend(message):
     if sys.platform == "win32":
         newData = data.decode("latin-1")
     else:
-        newData = data.decode("UTF-8")
+        newData = data.decode("latin-1")
+	#newData = data.decode("UTF-8")
 
     TSXSocket.close()
     if verbose:  
