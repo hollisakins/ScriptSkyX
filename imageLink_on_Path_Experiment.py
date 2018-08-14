@@ -8,7 +8,7 @@
 # August 03, 2018
 #
 
-from library.PySkyX_ks import *
+from PySkyX_ks import *
 
 import time
 import sys
@@ -24,7 +24,7 @@ import os
 #
 # Thuban is usually a reliable solver assuming the simulated camera's
 # FOV is big enough. Like 1200x1000 or some such.
-i
+
 print("")
 print("Taking an image at the current location.")
 print("")

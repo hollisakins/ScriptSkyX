@@ -1015,10 +1015,10 @@ def getStatsPath(imgPath):
         print("     NOTE: File is " + new_dir_name.name)
         new_dir_name = str(new_dir_name).replace("\\", "\\\\")
     else:
-        print("     NOTE: UNIX-style path.")
+        print("     NOTE: MS-DOS style path.")
         print("     NOTE: Directory is " + str(new_dir_name.parent))
         print("     NOTE: File is " + new_dir_name.name)
-        new_dir_name = str(new_dir_name)
+        new_dir_name = str(new_dir_name).replace("\\", "\\\\")
 
     print("     NOTE: Attempting Image Link:")
 
