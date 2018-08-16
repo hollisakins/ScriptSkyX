@@ -2,6 +2,10 @@ import PySkyX_ks as tsx
 from time import sleep
 from datetime import datetime
 import traceback
+from astropy.coordinates import SkyCoord,FK5
+from astropy import units as u
+from time import strftime,localtime
+
 
 camera = "Imager"
 
@@ -57,12 +61,21 @@ try:
 	# fill in with several targets and their corresponding filters and exposure times
 	targnames = ['V0457-Lac','WASP-93','WASP-135','kepler-840','kepler-686']
 	# topocentric coordinates not J2000---coordiates ON DATE
-	targets = [
-		(1,2),
-		(2,3),
-		(3,4),
-		(3,4)
+	targets_j2000 = [
+		('22h36m22.9860296424s','+38d06m18.368386078s'),
+		('00h37m50.1100065561s','+51d17m19.559072949s'),
+		('17h49m08.40s','+29d52m44.9s'),
+		('19h46m01.7684787984s','+49d27m26.238469580s'),
+		('19h00m51.3164323877s','+39d01m38.812046717s')
 	]
+	targets = []
+	for target in targets_j2000:
+		coords = SkyCoord(str(target[0]), str(target[1]), frame=FK5)
+		j2018 = FK5(equinox='J2018')  # String initializes an astropy.time.Time object
+		coords = coords.transform_to(j2018)  
+		targets.append((coords.ra.degree,coords.dec.degree))
+
+
 	# Red = "0", Green = "1", Blue = "2", R = "3", V = "4", B = "5", Halpha = "6", Lum = "7"
 	filters = ['4','4','4','4','4']
 	exptimes = ['120','120','120','120','120']
@@ -79,7 +92,6 @@ try:
 	print("Script will begin shutdown at %s" % endtime)
 	endtime = datetime.strptime(endtime,"%Y-%m-%d %H:%M")
 		
-	raise KeyboardInterrupt
 	# start up the observatory!
 	startup()
 
@@ -88,7 +100,6 @@ try:
 	while IsNightTime: # while still true
 		now = datetime.now() # redefine now each time
 		for target,filt,exptime,targname in zip(targets,filters,exptimes,targnames): # for each target and its correspoding exptime and filter
-			# tsx.slew(target) # slew to the target
 			tsx.slewToCoords(target,targname)
 			tsx.takeImage(camera,exptime,'1',filt) # take image
 			path = tsx.getActiveImagePath() # get path
