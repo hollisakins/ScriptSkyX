@@ -55,8 +55,14 @@ try:
 	print('')
 
 	# fill in with several targets and their corresponding filters and exposure times
-	# V0457 Lac, Wasp 93, Wasp 135, Keplter 840, Kepler 686 -- look up in SIMBAD and replace with HIP or TYC ids
-	targets = ['HIP111590','TYC3261-1703-1','WASP135','kepler840','kepler686']
+	targnames = ['V0457-Lac','WASP-93','WASP-135','kepler-840','kepler-686']
+	# topocentric coordinates not J2000---coordiates ON DATE
+	targets = [
+		(1,2),
+		(2,3),
+		(3,4),
+		(3,4)
+	]
 	# Red = "0", Green = "1", Blue = "2", R = "3", V = "4", B = "5", Halpha = "6", Lum = "7"
 	filters = ['4','4','4','4','4']
 	exptimes = ['120','120','120','120','120']
@@ -81,8 +87,9 @@ try:
 	
 	while IsNightTime: # while still true
 		now = datetime.now() # redefine now each time
-		for target,filt,exptime in zip(targets,filters,exptimes): # for each target and its correspoding exptime and filter
-			tsx.slew(target) # slew to the target
+		for target,filt,exptime,targname in zip(targets,filters,exptimes,targnames): # for each target and its correspoding exptime and filter
+			# tsx.slew(target) # slew to the target
+			tsx.slewToCoords(target,targname)
 			tsx.takeImage(camera,exptime,'1',filt) # take image
 			path = tsx.getActiveImagePath() # get path
 			print("Saved image to %s" % path)

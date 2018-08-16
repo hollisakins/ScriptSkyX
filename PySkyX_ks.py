@@ -23,7 +23,13 @@ import random
 import math
 import pathlib
 
-
+def slewToCoords(coords,name):
+    ra = coords[0]
+    dec = coords[1]
+    command = "sky6RASCOMTele.SlewToRaDec(%s,%s,'%s')" % (str(ra),str(dec),str(name))
+    print("Slewing to %s, %s" % (ra,dec))
+    TSXSend(command)
+    print("Completed slew")
 
 def openDome():
     if TSXSend("sky6Dome.IsConnected")=="0":
