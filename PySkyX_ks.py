@@ -30,10 +30,11 @@ def slewToCoords(coords,name):
     print("Slewing to %s, %s" % (ra,dec))
     TSXSend(command)
     print("Completed slew")
+    TSXSend("sky6RASCOMTele.GetAzAlt()")
     mntAz = round(float(TSXSend("sky6RASCOMTele.dAz")), 2)
     mntAlt = round(float(TSXSend("sky6RASCOMTele.dAlt")), 2) 
+    print("NOTE: Mount currently at: " + str(mntAz)  + " az., " + str(mntAlt) + " alt.")
 
-    print("     NOTE: Mount currently at: " + str(mntAz)  + " az., " + str(mntAlt) + " alt.")
 
 def openDome():
     if TSXSend("sky6Dome.IsConnected")=="0":

@@ -71,10 +71,9 @@ try:
 	targets = []
 	for target in targets_j2000:
 		coords = SkyCoord(str(target[0]), str(target[1]), frame=FK5)
-		j2018 = FK5(equinox='J2018')  # String initializes an astropy.time.Time object
+		j2018 = FK5(equinox='J2018.6274')  # String initializes an astropy.time.Time object
 		coords = coords.transform_to(j2018)  
-		targets.append((coords.ra.degree,coords.dec.degree))
-
+		targets.append((coords.ra.hour,coords.dec.degree))
 
 	# Red = "0", Green = "1", Blue = "2", R = "3", V = "4", B = "5", Halpha = "6", Lum = "7"
 	filters = ['4','4','4','4','4']
