@@ -69,10 +69,10 @@ try:
 	# not sure if there is functionality to set binning but I think 3x3 is fine for now
 
 	# make sure that all the targets exist in the database before we try to slew to any
-	for target in targets:
-		if not tsx.targExists(target)=='Yes':
-			print("Target %s does not exist in SkyX database, please re-enter" % target)
-			raise KeyboardInterrupt
+	# for target in targets:
+	# 	if not tsx.targExists(target)=='Yes':
+	# 		print("Target %s does not exist in SkyX database, please re-enter" % target)
+	# 		raise KeyboardInterrupt
 
 	# define end time for the script to auto shutdown
 	endtime = "2018-08-17 05:00"
