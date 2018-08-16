@@ -29,7 +29,7 @@ def openDome():
     if TSXSend("sky6Dome.IsConnected")=="0":
         TSXSend("sky6Dome.Connect()")
         print("Connected Dome")
-    
+    print("Opening dome...")
     TSXSend("sky6Dome.OpenSlit()")
     print("Waiting... 30 s remaining")
     time.sleep(10)
@@ -49,7 +49,7 @@ def closeDome():
     if TSXSend("sky6Dome.IsConnected")=="0":
         TSXSend("sky6Dome.Connect()")
         print("Connected Dome")
-    
+    print("Closing dome...")
     TSXSend("sky6Dome.CloseSlit()")
     print("Waiting... 30 s remaining")
     time.sleep(10)
@@ -65,14 +65,31 @@ def closeDome():
     else:
         raise Exception("Dome close not successful!")
 
+def domeDisconnect():
+    if TSXSend("sky6Dome.IsConnected")=="1":
+        print("Dome already disconnected")
+    else:
+        print("Disconnecting dome")
+        TSXSend("sky6Dome.Disconnect()")
+        if TSXSend("sky6Dome.IsConnected")=="1":
+            print("Sucessfully disconnected dome")
+
 def findDomeHome():
     if TSXSend("sky6Dome.IsConnected")=="0":
         TSXSend("sky6Dome.Connect()")
         print("Connected Dome")
-
+    print("Finding home...")
     TSXSend("sky6Dome.FindHome()")
-    while TSXSend("sky6Dome.isFindHomeComplete")=="0":
-        pass
+    print("Waiting... 100 s remaining")
+    time.sleep(20)
+    print("Waiting... 80 s remaining")
+    time.sleep(20)
+    print("Waiting... 60 s remaining")
+    time.sleep(20)
+    print("Waiting... 40 s remaining")
+    time.sleep(20)
+    print("Waiting... 20 s remaining")
+    time.sleep(20)
     print("Dome successfully found home")
 
 
@@ -652,7 +669,8 @@ def camConnect(whichCam):
         timeStamp("Unable to connect: " + whichCam)
         return "Fail"
     else:
-      return "Success"
+        print("Successfully connected camera")
+        return "Success"
 
 def camDisconnect(whichCam):
 #
@@ -669,6 +687,7 @@ def camDisconnect(whichCam):
         timeStamp("Unable to disconnect: " + whichCam)
         return "Fail"
     else:
+        print("Successfully disconnected camera")
         return "Success"
 
 def camConnectRemote(host, whichCam):
