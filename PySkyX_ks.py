@@ -24,6 +24,78 @@ import math
 import pathlib
 
 
+
+def openDome():
+    if TSXSend("sky6Dome.IsConnected")=="0":
+        TSXSend("sky6Dome.Connect()")
+        print("Connected Dome")
+    
+    TSXSend("sky6Dome.OpenSlit()")
+    print("Waiting... 30 s remaining")
+    time.sleep(10)
+    print("Waiting... 20 s remaining")
+    time.sleep(10)
+    print("Waiting... 10 s remaining")
+    time.sleep(10)
+    while TSXSend("sky6Dome.IsOpenComplete")=="0":
+        pass
+    
+    if TSXSend("sky6Dome.slitState()")=="1" or TSXSend("sky6Dome.slitState()")=="3":
+        print("Successfully opened dome")
+    else:
+        raise Exception("Dome open not successful!")
+
+def closeDome():
+    if TSXSend("sky6Dome.IsConnected")=="0":
+        TSXSend("sky6Dome.Connect()")
+        print("Connected Dome")
+    
+    TSXSend("sky6Dome.CloseSlit()")
+    print("Waiting... 30 s remaining")
+    time.sleep(10)
+    print("Waiting... 20 s remaining")
+    time.sleep(10)
+    print("Waiting... 10 s remaining")
+    time.sleep(10)
+    while TSXSend("sky6Dome.IsCloseComplete")=="0":
+        pass
+    
+    if TSXSend("sky6Dome.slitState()")=="2" or TSXSend("sky6Dome.slitState()")=="4":
+        print("Successfully closed dome")
+    else:
+        raise Exception("Dome close not successful!")
+
+def findDomeHome():
+    if TSXSend("sky6Dome.IsConnected")=="0":
+        TSXSend("sky6Dome.Connect()")
+        print("Connected Dome")
+
+    TSXSend("sky6Dome.FindHome()")
+    while TSXSend("sky6Dome.isFindHomeComplete")=="0":
+        pass
+    print("Dome successfully found home")
+
+
+def connectMount():
+    TSXSend("sky6RASCOMTele.Connect()")
+    if TSXSend("sky6RASCOMTele.IsConnected")=="1":
+        print("Successfully connected mount")
+    else:
+        raise Exception("Unsuccessful mount connection")
+
+    TSXSend("sky6RASCOMTele.FindHome()")
+    if TSXSend("sky6RASCOMTele.IsTracking")=="1":
+        print("Mout found home, tracking at sidereal rate")
+
+def parkAndDisconnectMount():
+    TSXSend("sky6RASCOMTele.Park()")
+    if TSXSend("sky6RASCOMTele.IsConnected")=="0":
+        print("Successfully parked and disconnected mount")
+    else:
+        raise Exception("Unsuccessful park and disconnect")
+
+
+
 def adjAGExposure(origAGExp, origAGDelay, XCoord, YCoord):
 #
 # Measure the brightness of the selected guide star and suggest tweaks
@@ -1502,36 +1574,6 @@ def slew(target):
     mntAlt = round(float(TSXSend("sky6RASCOMTele.dAlt")), 2) 
 
     print("     NOTE: Mount currently at: " + str(mntAz)  + " az., " + str(mntAlt) + " alt.")
-
-def openDome():
-    if TSXSend("sky6Dome.IsConnected")=="0":
-        TSXSend("sky6Dome.Connect()")
-        print("Connected Dome")
-    
-    TSXSend("sky6Dome.OpenSlit()")
-    time.sleep(30)
-    while TSXSend("sky6Dome.IsOpenComplete")=="0":
-        pass
-    
-    if TSXSend("sky6Dome.slitState()")=="1" or TSXSend("sky6Dome.slitState()")=="3":
-        print("Successfully opened dome")
-    else:
-        print("Dome not successfully closed!")
-
-def closeDome():
-    if TSXSend("sky6Dome.IsConnected")=="0":
-        TSXSend("sky6Dome.Connect()")
-        print("Connected Dome")
-    
-    TSXSend("sky6Dome.CloseSlit()")
-    time.sleep(30)
-    while TSXSend("sky6Dome.IsCloseComplete")=="0":
-        pass
-    
-    if TSXSend("sky6Dome.slitState()")=="2" or TSXSend("sky6Dome.slitState()")=="4":
-        print("Successfully closed dome")
-    else:
-        print("Dome not successfully closed")
 
 
 def slewRemote(host, target):

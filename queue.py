@@ -5,6 +5,18 @@ tsx.TSXHost = "10.71.4.5"
 tsx.TSXPort = 3040
 
 print('Attempting connection to SkyX at %s:%s' % (tsx.TSXHost,tsx.TSXPort))
+print('')
+ready = raw_input('Ready for system startup? (open dome & find home, connect mount & find home, connect camera) [y/n]')
+if not ready=='y':
+	raise Exception("quit")	
+print('Beginning startup procedures')
+tsx.openDome()
+tsx.findDomeHome()
+tsx.connectMount()
+tsx.camConnect("Imager")
+
+raise Exception('test')
+
 
 camera = "Imager"
 targetIdentified = False
