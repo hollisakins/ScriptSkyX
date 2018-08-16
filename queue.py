@@ -19,6 +19,10 @@ def shutdown():
 	tsx.domeDisconnect()
 
 def sendMsg(message):
+	from email.MIMEMultipart import MIMEMultipart
+	import smtplib
+	from email.MIMEText import MIMEText
+
 	s = smtplib.SMTP('smtp.gmail.com', 587)
 	s.starttls()
 	address = 'gcdatapipeline@gmail.com' 
@@ -51,7 +55,8 @@ try:
 	print('')
 
 	# fill in with several targets and their corresponding filters and exposure times
-	targets = ['V0457Lac','WASP-93','WASP-135','kepler-840','kepler-686']
+	# V0457 Lac, Wasp 93, Wasp 135, Keplter 840, Kepler 686 -- look up in SIMBAD and replace with HIP or TYC ids
+	targets = ['HIP111590','TYC3261-1703-1','WASP135','kepler840','kepler686']
 	# Red = "0", Green = "1", Blue = "2", R = "3", V = "4", B = "5", Halpha = "6", Lum = "7"
 	filters = ['4','4','4','4','4']
 	exptimes = ['120','120','120','120','120']
@@ -67,8 +72,8 @@ try:
 	endtime = "2018-08-17 05:00"
 	print("Script will begin shutdown at %s" % endtime)
 	endtime = datetime.strptime(endtime,"%Y-%m-%d %H:%M")
-	
-	
+		
+	raise KeyboardInterrupt
 	# start up the observatory!
 	startup()
 
