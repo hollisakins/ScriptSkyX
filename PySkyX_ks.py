@@ -66,12 +66,12 @@ def closeDome():
         raise Exception("Dome close not successful!")
 
 def domeDisconnect():
-    if TSXSend("sky6Dome.IsConnected")=="1":
+    if TSXSend("sky6Dome.IsConnected")=="0":
         print("Dome already disconnected")
     else:
         print("Disconnecting dome")
         TSXSend("sky6Dome.Disconnect()")
-        if TSXSend("sky6Dome.IsConnected")=="1":
+        if TSXSend("sky6Dome.IsConnected")=="0":
             print("Sucessfully disconnected dome")
 
 def findDomeHome():
@@ -80,10 +80,6 @@ def findDomeHome():
         print("Connected Dome")
     print("Finding home...")
     TSXSend("sky6Dome.FindHome()")
-    print("Waiting... 100 s remaining")
-    time.sleep(20)
-    print("Waiting... 80 s remaining")
-    time.sleep(20)
     print("Waiting... 60 s remaining")
     time.sleep(20)
     print("Waiting... 40 s remaining")
@@ -99,12 +95,13 @@ def connectMount():
         print("Successfully connected mount")
     else:
         raise Exception("Unsuccessful mount connection")
-
+    print("Finding home...")
     TSXSend("sky6RASCOMTele.FindHome()")
     if TSXSend("sky6RASCOMTele.IsTracking")=="1":
         print("Mout found home, tracking at sidereal rate")
 
 def parkAndDisconnectMount():
+    print("Parking mount...")
     TSXSend("sky6RASCOMTele.Park()")
     if TSXSend("sky6RASCOMTele.IsConnected")=="0":
         print("Successfully parked and disconnected mount")
